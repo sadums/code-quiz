@@ -148,16 +148,14 @@ var questionSheetMedium = [
         correct: 2
     },
     {
-        question: `What is the result of the following code snippet:
-        let num = 5;
-        console.log(num++);`,
+        question: "What is the output of the following code snippet: console.log(typeof null);",
         answers: [
-            "5",
-            "6",
-            "4",
-            "undefined"
+            "null",
+            "undefined",
+            "object",
+            "boolean"
         ],
-        correct: 0
+        correct: 2
     },
     {
         question: 'What does the "slice" method do on an array in JavaScript?',
@@ -313,14 +311,14 @@ var questionSheetHard = [
         correct: 0
     },
     {
-        question: "",
+        question: "Which of the following is not a valid JavaScript event listener?",
         answers: [
-            "",
-            "",
-            "",
-            ""
+            "click",
+            "keydown",
+            "hover",
+            "scroll"
         ],
-        correct: 0
+        correct: 2
     },
 ]
 
@@ -358,8 +356,8 @@ startButton.on('click', function(){
         <div class="col-md-6">
             <div class="h-100 p-5 text-white bg-dark border rounded-3 shadow">
             <div class="row">
-                <h4 class="col-sm-10" id="score">Score: </h4>
-                <h4 class="col-sm-2" id="timer">Time: </h4>
+                <h4 class="col-sm-8" id="score">Score: </h4>
+                <h4 class="col-sm-4" id="timer">Time: </h4>
             </div>
                 <div class="h-100 p-5 text-white bg-dark border rounded-3 shadow">
                 <h2 id="questionNum">Question #</h2>
@@ -397,25 +395,37 @@ var startGame = function(){
     var questionEl = $('#question');
     var buttonEls = [$('#0'), $('#1'), $('#2'), $('#3')];
     var questionNum = 0;
-    
+    var questionObject;
     var questionSheet = selectedQuestionSheet;
 
     // Load new question
     var newQuestion = function(){
         questionNumEl.text("Question #" + (questionNum + 1));
 
-        var questionObject = questionSheet[questionNum];
+        questionObject = questionSheet[questionNum];
         questionEl.text(questionObject.question);
         for(var i = 0; i < buttonEls.length; i++){
             buttonEls[i].text(questionObject.answers[i]);
         }
-
-
         questionNum++;
     }
 
+    var correct = function(){
+        console.log("Correct");
+    }
+
+    var incorrect = function(){
+        console.log("Incorrect");
+    }
+
     // Question answered function
-    buttonEls.forEach( (x) => x.on("click", function(){
+    buttonEls.forEach( (x) => x.on("click", function(e){
+        if(+x.attr("id") === questionObject.correct){
+            correct();
+        }else{
+            incorrect();
+        }
+        console.log(+x.attr("id"));
         newQuestion();
     }));
 
