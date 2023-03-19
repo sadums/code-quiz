@@ -1,5 +1,7 @@
 var main = $('main');
-var difficulties = ['Easy', 'Medium', 'Hard', 'Impossible'];
+var difficulties = ['Easy', 'Medium', 'Hard'];
+
+var time = 60;
 
 var questionNum = '4';
 var question = 'This is a test';
@@ -93,14 +95,14 @@ var questionSheetEasy = [
         correct: 1
     },
     {
-        question: "Which of the following is the correct syntax to declare a JavaScript object?",
+        question: "Which of the following is not a way to declare a variable in JavaScript?",
         answers: [
-            "var myObject = {}",
-            "let myObject = ()",
-            "const myObject = []",
-            "var myObject = ()"
+            "let",
+            "const",
+            "var",
+            "def"
         ],
-        correct: 0
+        correct: 3
     },
     {
         question: "Which of the following is NOT a primitive data type in JavaScript?",
@@ -112,6 +114,111 @@ var questionSheetEasy = [
         ],
         correct: 3
     }
+]
+
+var questionSheetMedium = [
+    {
+        question: "Which of the following is a way to add an element to the end of an array in JavaScript?",
+        answers: [
+            "array.push(element)",
+            "array.unshift(element)",
+            "array.append(element)",
+            "array.add(element)"
+        ],
+        correct: 0
+    },
+    {
+        question: "Which of the following is the correct syntax to declare a JavaScript object?",
+        answers: [
+            "var myObject = {}",
+            "let myObject = ()",
+            "const myObject = []",
+            "var myObject = ()"
+        ],
+        correct: 0
+    },
+    {
+        question: 'What does the keyword "this" refer to in JavaScript?',
+        answers: [
+            "The current function.",
+            "The global object.",
+            "The object that the function is a method of.",
+            "The object that the function was called on."
+        ],
+        correct: 2
+    },
+    {
+        question: `What is the result of the following code snippet:
+        let num = 5;
+        console.log(num++);`,
+        answers: [
+            "5",
+            "6",
+            "4",
+            "undefined"
+        ],
+        correct: 0
+    },
+    {
+        question: 'What does the "slice" method do on an array in JavaScript?',
+        answers: [
+            "Removes the last element of the array.",
+            "Adds an element to the beginning of the array.",
+            "Returns a new array with a portion of the original array.",
+            "Reverses the order of the elements in the array."
+        ],
+        correct: 2
+    },
+    {
+        question: 'What is the difference between "let" and "var" in JavaScript?',
+        answers: [
+            "There is no difference.",
+            '"let" declares a block-scoped variable, while "var" declares a function-scoped variable',
+            '"var" declares a block-scoped variable, while "let" declares a function-scoped variable.',
+            '"let" and "var" are synonyms in JavaScript.'
+        ],
+        correct: 1
+    },
+    {
+        question: 'What is the difference between "null" and "undefined" in JavaScript?',
+        answers: [
+            "There is no difference.",
+            '"null" represents an intentional absence of any object value, while "undefined" represents a variable that has not been assigned a value.',
+            '"null" represents a variable that has not been assigned a value, while "undefined" represents an intentional absence of any object value.',
+            '"undefined" is a keyword in JavaScript, while "null" is not.'
+        ],
+        correct: 1
+    },
+    {
+        question: 'What is the difference between "map" and "forEach" methods in JavaScript?',
+        answers: [
+            "There is no difference.",
+            '"map" creates a new array with the results of calling a function on each element in the array, while "forEach" executes a function for each element in the array without returning a new array.',
+            '"forEach" creates a new array with the results of calling a function on each element in the array, while "map" executes a function for each element in the array without returning a new array.',
+            '"map" and "forEach" are synonyms in JavaScript.'
+        ],
+        correct: 1
+    },
+    {
+        question: 'What does the "continue" keyword do in a loop in JavaScript?',
+        answers: [
+            "Exits the loop.",
+            "Skips the current iteration of the loop and goes to the next iteration.",
+            "Returns a value from the loop.",
+            "Throws an error."
+        ],
+        correct: 1
+    },
+    {
+        question: "Which of the following is not a valid way to define a function in JavaScript?",
+        answers: [
+            "function foo() {}",
+            "const foo = function() {};",
+            "const foo = () => {};",
+            "const foo = new Function();"
+        ],
+        correct: 3
+    },
 ]
 
 var questionSheetHard = [
@@ -215,13 +322,16 @@ var questionSheetHard = [
         ],
         correct: 0
     },
-
 ]
+
+var questionSheets = [questionSheetEasy, questionSheetMedium, questionSheetHard];
+
 // Initialize radio buttons
 var difficultyRadioBtns = document.getElementsByName('difficulty');
 difficultyRadioBtns[0].checked = true;
 var selectedDifficulty = 0;
 var quizTitleEl = $('#quizTitle');
+var selectedQuestionSheet = questionSheets[selectedDifficulty];
 
 var checkButtons = function(){
     for(let i = 0; i < difficultyRadioBtns.length; i++){
@@ -229,7 +339,8 @@ var checkButtons = function(){
             selectedDifficulty = i;
         }
     }
-    quizTitleEl.text(`Code Quiz: ${difficulties[selectedDifficulty]}`)
+    selectedQuestionSheet = questionSheets[selectedDifficulty];
+    quizTitleEl.text(`Code Quiz: ${difficulties[selectedDifficulty]}`);
 }
 
 checkButtons();
@@ -241,33 +352,52 @@ var startCard = $('#start');
 var startButton = $('#startButton');
 
 startButton.on('click', function(){
-    startTimer();
     startCard.css('display','none');
     main.html(`
     <div id="start" class="row align-items-md-stretch align-items-center justify-content-center">
         <div class="col-md-6">
             <div class="h-100 p-5 text-white bg-dark border rounded-3 shadow">
             <div class="row">
-                <h4 class="col-sm-10">Score: </h4>
-                <h4 class="col-sm-2">Time: </h4>
+                <h4 class="col-sm-10" id="score">Score: </h4>
+                <h4 class="col-sm-2" id="timer">Time: </h4>
             </div>
                 <div class="h-100 p-5 text-white bg-dark border rounded-3 shadow">
-                <h2>Question #${questionNum}</h2>
-                <p>${question}</p>
+                <h2 id="questionNum">Question #</h2>
+                <p id="question"></p>
                 <div class="container vstack gap-3">
-                    <button id="0" class="btn btn-outline-light text-blue grow d-flex justify-content-start align-items-center" type="button">${ans1}</button>
-                    <button id="1" class="btn btn-outline-light text-blue grow d-flex justify-content-start align-items-center" type="button">${ans2}</button>
-                    <button id="2" class="btn btn-outline-light text-blue grow d-flex justify-content-start align-items-center" type="button">${ans3}</button>
-                    <button id="3" class="btn btn-outline-light text-blue grow d-flex justify-content-start align-items-center" type="button">${ans4}</button>
+                    <button id="0" class="btn btn-outline-light text-blue grow d-flex justify-content-start align-items-center" type="button"></button>
+                    <button id="1" class="btn btn-outline-light text-blue grow d-flex justify-content-start align-items-center" type="button"></button>
+                    <button id="2" class="btn btn-outline-light text-blue grow d-flex justify-content-start align-items-center" type="button"></button>
+                    <button id="3" class="btn btn-outline-light text-blue grow d-flex justify-content-start align-items-center" type="button"></button>
                 </div>
             </div>
         </div>
     </div>
     `);
+    startTimer();
 });
 
 var startTimer = function(){
+    var timerEl = $('#timer');
     var timerInterval = setInterval(function() {
         
+        timerEl.text("Time: " + time)
+
+        if(time === 0){
+            clearInterval(timerInterval);
+        }
+        time--;
     }, 1000);
 }
+
+var startGame = function(){
+    var scoreEl = $('#score');
+    var questionNumEl = $('#questionNum');
+    var questionEl = $('#question');
+    var buttonEls = [$('#0'), $('#1'), $('#2'), $('#3')];
+    
+    var questionSheet = selectedQuestionSheet;
+
+    
+}
+
