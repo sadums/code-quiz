@@ -20,6 +20,12 @@ var startCard = $('#start');
 var startButton = $('#startButton');
 
 startButton.on('click', function(){
+    startTimer();
     startCard.css('display','none');
-    console.log("Started");
-})
+});
+
+var startTimer = function(){
+    var timerInterval = setInterval(function() {
+        
+    }, 1000);
+}
