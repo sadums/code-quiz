@@ -378,14 +378,15 @@ startButton.on('click', function(){
 var startTimer = function(){
     var timerEl = $('#timer');
     var timerInterval = setInterval(function() {
-        
-        timerEl.text("Time: " + time)
-
-        if(time === 0){
+        if(time <= 0){
+            timerEl.text("Time: 0");
             clearInterval(timerInterval);
+            endGame();
+        }else{
+            timerEl.text("Time: " + time.toFixed(1));
         }
-        time--;
-    }, 1000);
+        time-= 0.1;
+    }, 100);
     startGame();
 }
 
@@ -400,6 +401,10 @@ var startGame = function(){
 
     // Load new question
     var newQuestion = function(){
+        if(questionNum >= 10){
+            endGame();
+            return;
+        }
         questionNumEl.text("Question #" + (questionNum + 1));
 
         questionObject = questionSheet[questionNum];
@@ -416,6 +421,7 @@ var startGame = function(){
 
     var incorrect = function(){
         console.log("Incorrect");
+        time -= 10;
     }
 
     // Question answered function
@@ -425,10 +431,12 @@ var startGame = function(){
         }else{
             incorrect();
         }
-        console.log(+x.attr("id"));
         newQuestion();
     }));
 
     newQuestion();
 }
 
+var endGame = function(){
+    console.log("Game Ended");
+}
