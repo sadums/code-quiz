@@ -388,6 +388,7 @@ var startTimer = function(){
         }
         time--;
     }, 1000);
+    startGame();
 }
 
 var startGame = function(){
@@ -395,9 +396,29 @@ var startGame = function(){
     var questionNumEl = $('#questionNum');
     var questionEl = $('#question');
     var buttonEls = [$('#0'), $('#1'), $('#2'), $('#3')];
+    var questionNum = 0;
     
     var questionSheet = selectedQuestionSheet;
 
-    
+    // Load new question
+    var newQuestion = function(){
+        questionNumEl.text("Question #" + (questionNum + 1));
+
+        var questionObject = questionSheet[questionNum];
+        questionEl.text(questionObject.question);
+        for(var i = 0; i < buttonEls.length; i++){
+            buttonEls[i].text(questionObject.answers[i]);
+        }
+
+
+        questionNum++;
+    }
+
+    // Question answered function
+    buttonEls.forEach( (x) => x.on("click", function(){
+        newQuestion();
+    }));
+
+    newQuestion();
 }
 
