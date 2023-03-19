@@ -14,8 +14,12 @@ var checkButtons = function(){
 checkButtons();
 difficultyRadioBtns.forEach( (x) => x.addEventListener("click", checkButtons));
 
+// Start
 
+var startCard = $('#start');
+var startButton = $('#startButton');
 
-
-
-var mainEl = $('main');
+startButton.on('click', function(){
+    startCard.css('display','none');
+    console.log("Started");
+})
