@@ -349,6 +349,8 @@ difficultyRadioBtns.forEach( (x) => x.addEventListener("click", checkButtons));
 var startCard = $('#start');
 var startButton = $('#startButton');
 
+var score = 0;
+
 startButton.on('click', function(){
     startCard.css('display','none');
     main.html(`
@@ -356,7 +358,7 @@ startButton.on('click', function(){
         <div class="col-md-6">
             <div class="h-100 p-5 text-white bg-dark border rounded-3 shadow">
             <div class="row">
-                <h4 class="col-sm-8" id="score">Score: </h4>
+                <h4 class="col-sm-8" id="score">Score: 0</h4>
                 <h4 class="col-sm-4" id="timer">Time: </h4>
             </div>
                 <div class="h-100 p-5 text-white bg-dark border rounded-3 shadow">
@@ -380,12 +382,14 @@ var startTimer = function(){
     var timerInterval = setInterval(function() {
         if(time <= 0){
             timerEl.text("Time: 0");
+            time = 0;
             clearInterval(timerInterval);
             endGame();
         }else{
             timerEl.text("Time: " + time.toFixed(1));
         }
         time-= 0.1;
+        console.log(time);
     }, 100);
     startGame();
 }
@@ -416,6 +420,8 @@ var startGame = function(){
     }
 
     var correct = function(){
+        score += time * 100
+        scoreEl.text('Score: ' + score.toFixed(0));
         console.log("Correct");
     }
 
@@ -439,4 +445,18 @@ var startGame = function(){
 
 var endGame = function(){
     console.log("Game Ended");
+    main.html(
+    `<div id="finish" class="row align-items-md-stretch align-items-center justify-content-center">
+    <div class="col-md-6">
+      <div class="h-100 p-5 text-white bg-dark border rounded-3 shadow">
+        <div class="row">
+          <h3 class="col-sm-8" id="finalScore">Final Score: ${score.toFixed(0)}</h3>
+          <h5 class="col-sm-4" id="timeLeft">Time Left: ${time.toFixed(1)}</h5>
+        </div>
+        <p class="my-3">Enter your initials to go on the leaderboard!</p>
+        <input type="text" name="" id="initials" class="form-control w-25 my-3" placeholder="Initials here" aria-describedby="helpId">
+        <button id="submit" class="btn btn-outline-light text-blue grow mt-2" type="button">Submit</button>
+      </div>
+    </div>
+  </div>`)
 }
