@@ -486,8 +486,10 @@ var endGame = function(){
         "score": score.toFixed(0),
         "difficulty": difficulties[selectedDifficulty]
     }
+
     highScoreArray.push(highScoreObject);
-    localStorage.setItem("highScore", JSON.stringify(highScoreArray));
+    console.log(highScoreArray);
+    localStorage.setItem("highScore", JSON.stringify(bucketSort(highScoreArray, highScoreArray.length)));
     
     restart();
   });
@@ -498,3 +500,28 @@ var endGame = function(){
 }
 
 
+var homePageLink = $("#homePage");
+var highScoresPageLink = $("#highScoresPage");
+var highScoresPage = $("#highScores")
+var highScoreList = $("#highScoresList")
+
+
+highScoresPageLink.on("click", function(){
+    main.css("display", "none");
+    highScoresPage.css("display", "block");
+    homePageLink.attr("class", "nav-link");
+    highScoresPageLink.attr("class", "nav-link active");
+
+    var highScores = JSON.parse(localStorage.getItem("highScore"));
+    console.log(highScores);
+
+    
+    highScores.forEach
+})
+
+homePageLink.on("click", function(){
+    highScoresPage.css("display", "none");
+    main.css("display", "block");
+    homePageLink.attr("class", "nav-link active");
+    highScoresPageLink.attr("class", "nav-link");
+})

@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
 
+
+
 <body>
   <header>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow">
@@ -27,10 +29,10 @@
         <div class="collapse navbar-collapse" id="collapsibleNavId">
           <ul class="navbar-nav me-auto mt-2 mt-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" href="#" aria-current="page">Home <span class="visually-hidden">(current)</span></a>
+              <a class="nav-link active" href="#" id="homePage" aria-current="page">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">High Scores</a>
+              <a class="nav-link" href="#" id="highScoresPage">High Scores</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Difficulty</a>
@@ -52,7 +54,7 @@
     </nav>
   </header>
 
-  <main>
+  <main id="main">
     <div id="start" class="row align-items-md-stretch align-items-center justify-content-center">
       <div class="col-md-6">
         <div class="h-100 p-5 text-white bg-dark border rounded-3 shadow">
@@ -63,6 +65,22 @@
       </div>
     </div>
   </main>
+
+  <section id="highScores">
+    <div id="start" class="row align-items-md-stretch align-items-center justify-content-center">
+      <div class="col-md-6">
+        <div class="h-100 p-5 text-white bg-dark border rounded-3 shadow">
+          <h2 id="quizTitle">High Scores</h2>
+          <ul class="list-group list-group-numbered" id="highScoresList">
+            <li class="list-group-item"></li>
+            <li class="list-group-item"></li>
+            <li class="list-group-item"></li>
+          </ul>
+          <button id="back" class="btn btn-outline-light text-blue grow mt-2" type="button">Go Back</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <footer>
     
