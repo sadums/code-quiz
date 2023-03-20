@@ -479,22 +479,27 @@ var endGame = function(){
     startButton = $('#startButton');
     startButton.on('click', start);
   }
-
+  
 
   submitEl.on("click", function(){
-    var highScoreArray = JSON.parse(localStorage.getItem("highScore"));
-    var highScoreObject = {
-        "initials": initialsInput.val().toUpperCase(),
-        "score": score.toFixed(0),
-        "difficulty": difficulties[selectedDifficulty]
-    }
-
-    highScoreArray.push(highScoreObject);
-    highScoreArray.sort(function(a,b){return +b.score - +a.score});
-    console.log(highScoreArray);
-    localStorage.setItem("highScore", JSON.stringify(highScoreArray));
+    if(+initialsInput.val().length >= 2 && +initialsInput.val().length <= 4){
+        var highScoreArray = JSON.parse(localStorage.getItem("highScore"));
+        var highScoreObject = {
+            "initials": initialsInput.val().toUpperCase(),
+            "score": score.toFixed(0),
+            "difficulty": difficulties[selectedDifficulty]
+        }
+        
     
-    restart();
+        highScoreArray.push(highScoreObject);
+        highScoreArray.sort(function(a,b){return +b.score - +a.score});
+        console.log(highScoreArray);
+        localStorage.setItem("highScore", JSON.stringify(highScoreArray));
+        restart();
+        switchHighScorePage();
+    }else{
+        alert("Please make initials 2 - 4 characters long")
+    }
   });
 
   restartEl.on("click", function(){
@@ -508,8 +513,7 @@ var highScoresPageLink = $("#highScoresPage");
 var highScoresPage = $("#highScores")
 var highScoreList = $("#highScoresList")
 
-
-highScoresPageLink.on("click", function(){
+var switchHighScorePage = function(){
     main.css("display", "none");
     highScoresPage.css("display", "block");
     homePageLink.attr("class", "nav-link");
@@ -524,11 +528,19 @@ highScoresPageLink.on("click", function(){
         listItem.attr("class", "list-group-item");
         highScoreList.append(listItem);
     }
-})
+}
 
-homePageLink.on("click", function(){
+var backButton = $('#back');
+
+backButton.on("click", switchHomePage)
+
+highScoresPageLink.on("click", switchHighScorePage);
+
+var switchHomePage = function(){
     highScoresPage.css("display", "none");
     main.css("display", "block");
     homePageLink.attr("class", "nav-link active");
     highScoresPageLink.attr("class", "nav-link");
-})
+}
+
+homePageLink.on("click", switchHomePage);
