@@ -515,9 +515,13 @@ highScoresPageLink.on("click", function(){
 
     var highScores = JSON.parse(localStorage.getItem("highScore"));
     console.log(highScores);
-
-    
-    highScores.forEach
+    highScoreList.html('');
+    for(var i = 0; i < highScores.length; i++){
+        var listItem = $('<li>');
+        listItem.text(highScores[i].initials + " - " + highScores[i].score + "  / Difficulty - " + highScores[i].difficulty);
+        listItem.attr("class", "list-group-item");
+        highScoreList.append(listItem);
+    }
 })
 
 homePageLink.on("click", function(){
