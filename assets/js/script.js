@@ -1,4 +1,5 @@
 var main = $('main');
+localStorage.setItem("highScore", JSON.stringify([]));
 var difficulties = ['Easy', 'Medium', 'Hard'];
 
 
@@ -457,27 +458,43 @@ var endGame = function(){
   var restartEl = $('#restart')
   var initialsInput = $('#initials');
 
-  submitEl.on("click", function(){
-    console.log(initialsInput.val());
-  });
 
-  restartEl.on("click", function(){
+
+  function restart(){
     main.html(` 
-      <div id="start" class="row align-items-md-stretch align-items-center justify-content-center">
-        <div class="col-md-6">
-          <div class="h-100 p-5 text-white bg-dark border rounded-3 shadow">
-            <h2 id="quizTitle">Code Quiz: ${difficulties[selectedDifficulty]}</h2>
-            <p class="my-3">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
-            <button id="startButton" class="btn btn-outline-light text-blue grow mt-2" type="button">Start</button>
-          </div>
+    <div id="start" class="row align-items-md-stretch align-items-center justify-content-center">
+    <div class="col-md-6">
+        <div class="h-100 p-5 text-white bg-dark border rounded-3 shadow">
+        <h2 id="quizTitle">Code Quiz: ${difficulties[selectedDifficulty]}</h2>
+        <p class="my-3">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+        <button id="startButton" class="btn btn-outline-light text-blue grow mt-2" type="button">Start</button>
         </div>
-      </div>`
-    )
+    </div>
+    </div>
+    `)
 
     startCard = $('#start');
     startButton = $('#startButton');
     startButton.on('click', start);
-  })
+  }
+
+
+  submitEl.on("click", function(){
+    var highScoreArray = JSON.parse(localStorage.getItem("highScore"));
+    var highScoreObject = {
+        "initials": initialsInput.val().toUpperCase(),
+        "score": score.toFixed(0),
+        "difficulty": difficulties[selectedDifficulty]
+    }
+    highScoreArray.push(highScoreObject);
+    localStorage.setItem("highScore", JSON.stringify(highScoreArray));
+    
+    restart();
+  });
+
+  restartEl.on("click", function(){
+    restart();
+  });
 }
 
 
