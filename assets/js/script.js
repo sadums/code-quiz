@@ -1,16 +1,6 @@
 var main = $('main');
 var difficulties = ['Easy', 'Medium', 'Hard'];
 
-var time = 60;
-
-var questionNum = '4';
-var question = 'This is a test';
-
-var ans1 = 'test';
-var ans2 = 'test';
-var ans3 = 'test';
-var ans4 = 'test';
-
 
 // Question/Answer arrays
 var questionSheetEasy = [
@@ -325,6 +315,7 @@ var questionSheetHard = [
 var questionSheets = [questionSheetEasy, questionSheetMedium, questionSheetHard];
 
 // Initialize radio buttons
+
 var difficultyRadioBtns = document.getElementsByName('difficulty');
 difficultyRadioBtns[0].checked = true;
 var selectedDifficulty = 0;
@@ -349,9 +340,12 @@ difficultyRadioBtns.forEach( (x) => x.addEventListener("click", checkButtons));
 var startCard = $('#start');
 var startButton = $('#startButton');
 
-var score = 0;
+var score;
+var time;
 
-startButton.on('click', function(){
+var start = function(){
+    time = 60;
+    score = 0;
     startCard.css('display','none');
     main.html(`
     <div id="start" class="row align-items-md-stretch align-items-center justify-content-center">
@@ -375,7 +369,9 @@ startButton.on('click', function(){
     </div>
     `);
     startTimer();
-});
+}
+
+startButton.on('click', start);
 
 var startTimer = function(){
     var timerEl = $('#timer');
@@ -389,7 +385,6 @@ var startTimer = function(){
             timerEl.text("Time: " + time.toFixed(1));
         }
         time-= 0.1;
-        console.log(time);
     }, 100);
     startGame();
 }
@@ -422,11 +417,9 @@ var startGame = function(){
     var correct = function(){
         score += time * 100
         scoreEl.text('Score: ' + score.toFixed(0));
-        console.log("Correct");
     }
 
     var incorrect = function(){
-        console.log("Incorrect");
         time -= 10;
     }
 
@@ -444,7 +437,6 @@ var startGame = function(){
 }
 
 var endGame = function(){
-    console.log("Game Ended");
     main.html(
     `<div id="finish" class="row align-items-md-stretch align-items-center justify-content-center">
     <div class="col-md-6">
@@ -455,8 +447,37 @@ var endGame = function(){
         </div>
         <p class="my-3">Enter your initials to go on the leaderboard!</p>
         <input type="text" name="" id="initials" class="form-control w-25 my-3" placeholder="Initials here" aria-describedby="helpId">
-        <button id="submit" class="btn btn-outline-light text-blue grow mt-2" type="button">Submit</button>
+        <button id="submit" class="btn btn-outline-light text-blue grow mt-2 mr-2" type="button">Submit</button>
+        <button id="restart" class="btn btn-outline-light text-blue grow mt-2 mx-5" type="button">Restart</button>
       </div>
     </div>
-  </div>`)
+  </div>`);
+
+  var submitEl = $('#submit');
+  var restartEl = $('#restart')
+  var initialsInput = $('#initials');
+
+  submitEl.on("click", function(){
+    console.log(initialsInput.val());
+  });
+
+  restartEl.on("click", function(){
+    main.html(` 
+      <div id="start" class="row align-items-md-stretch align-items-center justify-content-center">
+        <div class="col-md-6">
+          <div class="h-100 p-5 text-white bg-dark border rounded-3 shadow">
+            <h2 id="quizTitle">Code Quiz: ${difficulties[selectedDifficulty]}</h2>
+            <p class="my-3">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+            <button id="startButton" class="btn btn-outline-light text-blue grow mt-2" type="button">Start</button>
+          </div>
+        </div>
+      </div>`
+    )
+
+    startCard = $('#start');
+    startButton = $('#startButton');
+    startButton.on('click', start);
+  })
 }
+
+
