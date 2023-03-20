@@ -31,10 +31,10 @@
         <div class="collapse navbar-collapse" id="collapsibleNavId">
           <ul class="navbar-nav me-auto mt-2 mt-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" href="#" id="homePage" aria-current="page">Home</a>
+              <a class="nav-link active" href="#" id="homeTab" aria-current="page">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" id="highScoresPage">High Scores</a>
+              <a class="nav-link" href="#" id="highScoresTab">High Scores</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Difficulty</a>
@@ -57,25 +57,62 @@
   </header>
 
   <main id="main">
-    <div id="start" class="row align-items-md-stretch align-items-center justify-content-center">
-      <div class="col-md-6">
-        <div class="h-100 p-5 text-white bg-dark border rounded-3 shadow">
-          <h2 id="quizTitle">Code Quiz: Easy</h2>
-          <p class="my-3">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
-          <button id="startButton" class="btn btn-outline-light text-blue grow mt-2" type="button">Start</button>
+    <section id="start">
+      <div id="start" class="row align-items-md-stretch align-items-center justify-content-center">
+        <div class="col-md-6">
+          <div class="h-100 p-5 text-white bg-dark border rounded-3 shadow">
+            <h2 id="quizTitle">Code Quiz: Easy</h2>
+            <p class="my-3">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+            <button id="startButton" class="btn btn-outline-light text-blue grow mt-2" type="button">Start</button>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
+    <section id="game">
+      <div id="start" class="row align-items-md-stretch align-items-center justify-content-center">
+        <div class="col-md-6">
+            <div class="h-100 p-5 text-white bg-dark border rounded-3 shadow">
+            <div class="row">
+                <h4 class="col-sm-8" id="score">Score: </h4>
+                <h4 class="col-sm-4" id="timer">Time: </h4>
+            </div>
+                <div class="h-100 p-5 text-white bg-dark border rounded-3 shadow">
+                <h2 id="questionNum">Question #</h2>
+                <p id="question"></p>
+                <div class="container vstack gap-3">
+                    <button id="0" class="btn btn-outline-light text-blue grow d-flex justify-content-start align-items-center" type="button"></button>
+                    <button id="1" class="btn btn-outline-light text-blue grow d-flex justify-content-start align-items-center" type="button"></button>
+                    <button id="2" class="btn btn-outline-light text-blue grow d-flex justify-content-start align-items-center" type="button"></button>
+                    <button id="3" class="btn btn-outline-light text-blue grow d-flex justify-content-start align-items-center" type="button"></button>
+                </div>
+            </div>
+        </div>
+      </div>
+    </section>
+    <section id="finish">
+      <div class="row align-items-md-stretch align-items-center justify-content-center">
+        <div class="col-md-6">
+          <div class="h-100 p-5 text-white bg-dark border rounded-3 shadow">
+            <div class="row">
+              <h3 class="col-sm-8" id="finalScore">Final Score: </h3>
+              <h5 class="col-sm-4" id="timeLeft">Time Left: </h5>
+            </div>
+            <p class="my-3">Enter your initials to go on the leaderboard!</p>
+            <input type="text" name="" id="initials" class="form-control w-25 my-3" placeholder="Initials here" aria-describedby="helpId">
+            <button id="submit" class="btn btn-outline-light text-blue grow mt-2 mr-2" type="button">Submit</button>
+            <button id="restart" class="btn btn-outline-light text-blue grow mt-2 mx-5" type="button">Restart</button>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <section id="highScores">
+  <section id="highScores" class="my-3">
     <div id="start" class="row align-items-md-stretch align-items-center justify-content-center">
       <div class="col-md-6">
         <div class="h-100 p-5 text-white bg-dark border rounded-3 shadow">
           <h2 id="quizTitle">High Scores</h2>
-          <ul class="list-group list-group-numbered my-4" id="highScoresList">
-            
-          </ul>
+          <ul class="list-group list-group-numbered my-4" id="highScoresList"></ul>
           <button id="back" class="btn btn-outline-light text-blue grow mt-2" type="button">Go Back</button>
         </div>
       </div>
