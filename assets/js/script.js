@@ -57,18 +57,24 @@ var hideTabs = function(){
 }
 
 var showStartTab = function(){
+    homeTabLink.attr("class", "nav-link active");
+    highScoresTabLink.attr("class", "nav-link");
     hideTabs();
     main.css('display', 'block');
     startScreen.css('display', 'block');
 }
 
 var showGameTab = function(){
+    homeTabLink.attr("class", "nav-link active");
+    highScoresTabLink.attr("class", "nav-link");
     hideTabs();
     main.css('display', 'block');
     gameScreen.css('display', 'block');
 }
 
 var showGameEndTab = function(){
+    homeTabLink.attr("class", "nav-link active");
+    highScoresTabLink.attr("class", "nav-link");
     hideTabs();
     main.css('display', 'block');
     gameEndScreen.css('display', 'block');
@@ -97,11 +103,15 @@ var startTimer = function(){
         if(time <= 0){
             time = 0;
             updateTime();
-            clearInterval(timerInterval);
             endGame();
+            clearInterval(timerInterval);
         }else{
             updateTime();
         }
+        if(questionNum >= 10){
+            clearInterval(timerInterval);
+        }
+        console.log(time);
         time-= 0.1;
     }, 100);
 }
@@ -147,13 +157,10 @@ var newQuestion = function(){
 
 /* GAME END FUNCTIONS */
 var endGame = function(){
+    showGameEndTab();
 
-  showGameEndTab();
-
-  timeLeftEl.text('Time Left: ' + time.toFixed(1));
-  finalScoreEl.text('Final Score: ' + score.toFixed(0));
-  
-  console.log("submit set")
+    timeLeftEl.text('Time Left: ' + time.toFixed(1));
+    finalScoreEl.text('Final Score: ' + score.toFixed(0));
 }
 
 var submitScore = function(){
