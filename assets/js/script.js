@@ -488,8 +488,9 @@ var endGame = function(){
     }
 
     highScoreArray.push(highScoreObject);
+    highScoreArray.sort(function(a,b){return +b.score - +a.score});
     console.log(highScoreArray);
-    localStorage.setItem("highScore", JSON.stringify(bucketSort(highScoreArray, highScoreArray.length)));
+    localStorage.setItem("highScore", JSON.stringify(highScoreArray));
     
     restart();
   });
