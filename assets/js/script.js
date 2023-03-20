@@ -1,5 +1,7 @@
 var main = $('main');
-localStorage.setItem("highScore", JSON.stringify([]));
+if(localStorage.getItem("highScore") === undefined){
+    localStorage.setItem("highScore", JSON.stringify([]));
+}
 var difficulties = ['Easy', 'Medium', 'Hard'];
 
 
@@ -472,7 +474,7 @@ var endGame = function(){
     </div>
     </div>
     `)
-
+    quizTitleEl = $('#quizTitle');
     startCard = $('#start');
     startButton = $('#startButton');
     startButton.on('click', start);
