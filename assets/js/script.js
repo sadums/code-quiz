@@ -34,7 +34,7 @@ var questionEl = $('#question');
 var answerButtons = [$('#0'), $('#1'), $('#2'), $('#3')];
 
 // Game End Tab Elements
-var gameEndTabEl = $('#finish');
+var gameEndTabEl = $('#gameEnd');
 var timeLeftEl = $('#timeLeft');
 var finalScoreEl = $('#finalScore');
 var submitButton = $('#submit');
@@ -91,31 +91,6 @@ var showHighScoreTab = function(){
 
 
 /* GAME FUNCTIONS */
-var updateTime = function(){
-    timerEl.text("Time: " + time.toFixed(1));
-}
-var updateScore = function(){
-    scoreEl.text('Score: ' + score.toFixed(0));
-}
-
-var startTimer = function(){
-    var timerInterval = setInterval(function() {
-        if(time <= 0){
-            time = 0;
-            updateTime();
-            endGame();
-            clearInterval(timerInterval);
-        }else{
-            updateTime();
-        }
-        if(questionNum >= 10){
-            clearInterval(timerInterval);
-        }
-        console.log(time);
-        time-= 0.1;
-    }, 100);
-}
-
 var start = function(){
     time = 60;
     score = 0;
@@ -129,6 +104,31 @@ var start = function(){
     newQuestion();
 }
 
+var updateTime = function(){
+    timerEl.text("Time: " + time.toFixed(1));
+}
+
+var updateScore = function(){
+    scoreEl.text('Score: ' + score.toFixed(0));
+}
+
+var startTimer = function(){
+    var timerInterval = setInterval(function() {
+        // if timer or game ends, stop timer
+        if(time <= 0){
+            time = 0;
+            endGame();
+            clearInterval(timerInterval);
+        }
+        if(questionNum >= 10){
+            clearInterval(timerInterval);
+        }
+
+        updateTime();
+        time-= 0.1;
+    }, 100);
+}
+
 var correct = function(){
     score += time * 100
     updateScore();
@@ -138,6 +138,7 @@ var incorrect = function(){
     time -= 10;
 }
 
+// show new question to the screen
 var newQuestion = function(){
     if(questionNum >= 10){
         endGame();
@@ -192,6 +193,7 @@ var updateHighScores = function(){
         listItem.attr("class", "list-group-item");
         highScoreListEl.append(listItem);
     }else{
+        // Display High Scores
         for(var i = 0; i < highScores.length; i++){
             var listItem = $('<li>');
             listItem.text(highScores[i].initials + " - " + highScores[i].score + "  / Difficulty - " + highScores[i].difficulty);

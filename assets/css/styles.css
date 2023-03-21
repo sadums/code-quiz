@@ -9,16 +9,16 @@ body{
     background-color: #1A2D2D;
 }
 
-#start, #highScores, #game, #finish{
+#start, #highScores, #game, #gameEnd{
     margin-top: 5%;
     padding-left: 20px;
     padding-right: 20px;
 }
 
-.grow:hover{
-    transform: scale(1.02);
+#highScores, #game, #gameEnd{
+    display:none
 }
 
-#highScores, #game, #finish{
-    display:none
+.grow:hover{
+    transform: scale(1.02);
 }
