@@ -187,7 +187,7 @@ var submitScore = function(){
 var updateHighScores = function(){
     var highScores = JSON.parse(localStorage.getItem("highScore"));
     highScoreListEl.html('');
-    if(highScores[0] === undefined){
+    if(highScores[0] === undefined || highScores[0] === null){
         var listItem = $('<li>');
         listItem.text("No high scores to display!");
         listItem.attr("class", "list-group-item");
