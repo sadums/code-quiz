@@ -32,6 +32,7 @@ var timerEl = $('#timer');
 var questionNumEl = $('#questionNum');
 var questionEl = $('#question');
 var answerButtons = [$('#0'), $('#1'), $('#2'), $('#3')];
+var correctEl = $('#correct');
 
 // Game End Tab Elements
 var gameEndTabEl = $('#gameEnd');
@@ -97,6 +98,7 @@ var start = function(){
     questionNum = 0;
     questionSheet = selectedQuestionSheet;
 
+    correctEl.text("");
     updateScore();
     updateTime();
     showGameTab();
@@ -132,10 +134,12 @@ var startTimer = function(){
 var correct = function(){
     score += time * 100
     updateScore();
+    correctEl.text("Correct!");
 }
 
 var incorrect = function(){
     time -= 10;
+    correctEl.text("Incorrect.");
 }
 
 // show new question to the screen
