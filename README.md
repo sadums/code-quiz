@@ -36,6 +36,9 @@ At any time you may switch the difficulty or view high scores.
 
 ![home screen](./assets/images/homescreen.png)
 
+
+Page Link: https://sadums.github.io/code-quiz/ 
+
 ## Credits
 
 N/A
