@@ -6,13 +6,12 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <!-- Site CSS -->
     <link href="./assets/css/styles.css" rel="stylesheet">
-
+    <!-- Question Sheet -->
     <script src = "./assets/js/questions.js"></script>
 </head>
 
@@ -20,9 +19,9 @@
 
 <body>
   <header>
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow">
         <div class="container">
-        <!-- title -->
         <a class="navbar-brand">Code Quiz</a>
         <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
           aria-expanded="false" aria-label="Toggle navigation">
@@ -30,12 +29,15 @@
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavId">
           <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+            <!-- Home Tab Link -->
             <li class="nav-item">
               <a class="nav-link active" href="#" id="homeTab" aria-current="page">Home</a>
             </li>
+            <!-- High Score Tab Link -->
             <li class="nav-item">
               <a class="nav-link" href="#" id="highScoresTab">High Scores</a>
             </li>
+            <!-- Difficulty Selector -->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Difficulty</a>
               <div class="dropdown-menu" aria-labelledby="dropdownId">
@@ -57,6 +59,7 @@
   </header>
 
   <main id="main">
+    <!-- Start Tab -->
     <section id="start">
       <div id="start" class="row align-items-md-stretch align-items-center justify-content-center">
         <div class="col-md-6">
@@ -68,6 +71,7 @@
         </div>
       </div>
     </section>
+    <!-- Game Tab -->
     <section id="game">
       <div id="start" class="row align-items-md-stretch align-items-center justify-content-center">
         <div class="col-md-6">
@@ -89,6 +93,7 @@
         </div>
       </div>
     </section>
+    <!-- Game End Tab -->
     <section id="finish">
       <div class="row align-items-md-stretch align-items-center justify-content-center">
         <div class="col-md-6">
@@ -107,6 +112,7 @@
     </section>
   </main>
 
+  <!-- High Score Tab -->
   <section id="highScores" class="my-3">
     <div id="start" class="row align-items-md-stretch align-items-center justify-content-center">
       <div class="col-md-6">

@@ -14,77 +14,77 @@ var questionSheets = [questionSheetEasy, questionSheetMedium, questionSheetHard]
 /* HTML ELEMENTS */
 
 // Nav Bar Elements
-var homeTabLink = $("#homeTab");
-var highScoresTabLink = $("#highScoresTab");
+var homeTabLinkEl = $("#homeTab");
+var highScoresTabLinkEl = $("#highScoresTab");
 
-// Home Screen
-var main = $('#main');
+// Home Tab
+var mainEl = $('#main');
 
-// Start Screen Elements
-var startScreen = $('#start');
+// Start Tab Elements
+var startTabEl = $('#start');
 var quizTitleEl = $('#quizTitle');
 var startButton = $('#startButton');
 
-// Game Screen Elements
-var gameScreen = $('#game');
+// Game Tab Elements
+var gameTabEl = $('#game');
 var scoreEl = $('#score');
 var timerEl = $('#timer');
 var questionNumEl = $('#questionNum');
 var questionEl = $('#question');
-var buttonEls = [$('#0'), $('#1'), $('#2'), $('#3')];
+var answerButtons = [$('#0'), $('#1'), $('#2'), $('#3')];
 
-// Game End Screen Elements
-var gameEndScreen = $('#finish');
+// Game End Tab Elements
+var gameEndTabEl = $('#finish');
 var timeLeftEl = $('#timeLeft');
 var finalScoreEl = $('#finalScore');
-var submitEl = $('#submit');
-var restartEl = $('#restart');
-var initialsInput = $('#initials');
+var submitButton = $('#submit');
+var restartButton = $('#restart');
+var initialsInputEl = $('#initials');
 
-// High Score Screen Elements
-var highScoresTab = $("#highScores");
-var highScoreList = $("#highScoresList");
+// High Score Tab Elements
+var highScoresTabEl = $("#highScores");
+var highScoreListEl = $("#highScoresList");
 var backButton = $('#back');
 
 
 
 /* TAB SWITCH FUNCTIONS */
 var hideTabs = function(){
-    startScreen.css('display', 'none');
-    gameScreen.css('display', 'none');
-    gameEndScreen.css('display', 'none');
-    highScoresTab.css('display', 'none');
+    startTabEl.css('display', 'none');
+    gameTabEl.css('display', 'none');
+    gameEndTabEl.css('display', 'none');
+    highScoresTabEl.css('display', 'none');
 }
 
 var showStartTab = function(){
-    homeTabLink.attr("class", "nav-link active");
-    highScoresTabLink.attr("class", "nav-link");
+    homeTabLinkEl.attr("class", "nav-link active");
+    highScoresTabLinkEl.attr("class", "nav-link");
     hideTabs();
-    main.css('display', 'block');
-    startScreen.css('display', 'block');
+    mainEl.css('display', 'block');
+    startTabEl.css('display', 'block');
 }
 
 var showGameTab = function(){
-    homeTabLink.attr("class", "nav-link active");
-    highScoresTabLink.attr("class", "nav-link");
+    homeTabLinkEl.attr("class", "nav-link active");
+    highScoresTabLinkEl.attr("class", "nav-link");
     hideTabs();
-    main.css('display', 'block');
-    gameScreen.css('display', 'block');
+    mainEl.css('display', 'block');
+    gameTabEl.css('display', 'block');
 }
 
 var showGameEndTab = function(){
-    homeTabLink.attr("class", "nav-link active");
-    highScoresTabLink.attr("class", "nav-link");
+    homeTabLinkEl.attr("class", "nav-link active");
+    highScoresTabLinkEl.attr("class", "nav-link");
     hideTabs();
-    main.css('display', 'block');
-    gameEndScreen.css('display', 'block');
+    mainEl.css('display', 'block');
+    gameEndTabEl.css('display', 'block');
 }
 
 var showHighScoreTab = function(){
-    homeTabLink.attr("class", "nav-link");
-    highScoresTabLink.attr("class", "nav-link active");
-    main.css('display', 'none');
-    highScoresTab.css('display', 'block');
+    homeTabLinkEl.attr("class", "nav-link");
+    highScoresTabLinkEl.attr("class", "nav-link active");
+    mainEl.css('display', 'none');
+    highScoresTabEl.css('display', 'block');
     updateHighScores();
 }
 
@@ -147,8 +147,8 @@ var newQuestion = function(){
 
     questionObject = questionSheet[questionNum];
     questionEl.text(questionObject.question);
-    for(var i = 0; i < buttonEls.length; i++){
-        buttonEls[i].text(questionObject.answers[i]);
+    for(var i = 0; i < answerButtons.length; i++){
+        answerButtons[i].text(questionObject.answers[i]);
     }
     questionNum++;
 }
@@ -164,10 +164,10 @@ var endGame = function(){
 }
 
 var submitScore = function(){
-    if(+initialsInput.val().length >= 2 && +initialsInput.val().length <= 4){
+    if(+initialsInputEl.val().length >= 2 && +initialsInputEl.val().length <= 4){
         var highScoreArray = JSON.parse(localStorage.getItem("highScore"));
         var highScoreObject = {
-            "initials": initialsInput.val().toUpperCase(),
+            "initials": initialsInputEl.val().toUpperCase(),
             "score": score.toFixed(0),
             "difficulty": difficulties[selectedDifficulty]
         }
@@ -185,18 +185,18 @@ var submitScore = function(){
 /* HIGH SCORE FUNCTIONS */ 
 var updateHighScores = function(){
     var highScores = JSON.parse(localStorage.getItem("highScore"));
-    highScoreList.html('');
+    highScoreListEl.html('');
     if(highScores[0] === undefined){
         var listItem = $('<li>');
         listItem.text("No high scores to display!");
         listItem.attr("class", "list-group-item");
-        highScoreList.append(listItem);
+        highScoreListEl.append(listItem);
     }else{
         for(var i = 0; i < highScores.length; i++){
             var listItem = $('<li>');
             listItem.text(highScores[i].initials + " - " + highScores[i].score + "  / Difficulty - " + highScores[i].difficulty);
             listItem.attr("class", "list-group-item");
-            highScoreList.append(listItem);
+            highScoreListEl.append(listItem);
         }
     }
 }
@@ -223,7 +223,7 @@ difficultyRadioButtons.forEach( (x) => x.addEventListener("click", checkButtons)
 
 startButton.on("click", start);
 
-buttonEls.forEach( (x) => x.on("click", function(e){
+answerButtons.forEach( (x) => x.on("click", function(e){
     if(+x.attr("id") === questionObject.correct){
         correct();
     }else{
@@ -232,15 +232,15 @@ buttonEls.forEach( (x) => x.on("click", function(e){
     newQuestion();
 }));
 
-submitEl.on("click", submitScore);
+submitButton.on("click", submitScore);
 
-restartEl.on("click", showStartTab);
+restartButton.on("click", showStartTab);
 
-highScoresTabLink.on("click", showHighScoreTab);
+highScoresTabLinkEl.on("click", showHighScoreTab);
 
 backButton.on("click", showStartTab);
 
-homeTabLink.on("click", showStartTab);
+homeTabLinkEl.on("click", showStartTab);
 
 
 
